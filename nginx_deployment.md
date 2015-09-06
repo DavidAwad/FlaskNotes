@@ -1,4 +1,4 @@
-# Flask + Nginx + Gunicorn(on a Vagrant box)
+# Deploying Flask with Nginx and Gunicorn on a Vagrant Box
 
 I had some difficulty in grasping how exactly to set up a server when I tried to do so recently, so I decided to write a tutorial that will guide you through the process. Hopefully, this post will help you avoid at least some of the confusion that I encountered.
 
@@ -167,9 +167,9 @@ If everything went right, if you visit [http://33.33.33.33/][33] you should now 
 
 **Update-** *I've written a follow-up to this post which covers Puppet, a really handy tool that's comes packaged with Vagrant- you can [find the post here][follow_up].*
 
-[vagrant]: http://vagrantup.com
-[flask]: http://flask.pocoo.org/
-[pelletier]: http://thomas.pelletier.im/2011/04/git-django-deployment/
-[virtualenv]: http://pypi.python.org/pypi/virtualenv
-[33]: http://33.33.33.33/
+[vagrant](http://vagrantup.com)
+[flask](http://flask.pocoo.org/)
+[pelletier](http://thomas.pelletier.im/2011/04/git-django-deployment/)
+[virtualenv](http://pypi.python.org/pypi/virtualenv)
+
 
