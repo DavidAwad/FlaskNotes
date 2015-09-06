@@ -8,40 +8,40 @@ What Puppet does is something called *provisioning*- that means that it **config
 
 First create a Vagrant box, 
 
-	```shell
-	mkdir codebase_with_puppet
-	cd codebase_with_puppet
+```shell
+mkdir codebase_with_puppet
+cd codebase_with_puppet
 
-	vagrant init
-	```
+vagrant init
+```
 	
 You should now see Vagrantfile. Open it with a text editor, then uncomment the lines
 
-	```puppet
-	
-	config.vm.provision :puppet do |puppet|
-		puppet.manifests_path = "manifests"
-		puppet.manifest_file  = "base.pp"
-	end
-	
-	```
+```puppet
+
+config.vm.provision :puppet do |puppet|
+	puppet.manifests_path = "manifests"
+	puppet.manifest_file  = "base.pp"
+end
+
+```
 	
 Now, create `base.pp` inside a folder called manifests, and add the following to it.
 
-	```puppet
-	
-	package {"nginx":
-		ensure => present,
-	}
-	
-	```
+```puppet
+
+package {"nginx":
+	ensure => present,
+}
+```
+
 Now, run `vagrant up`. You'll notice that Vagrant automatically installs `nginx` after it boots the VM. You should get a message like 
 
-	```shell
-	
-	notice: /Stage[main]//Package[nginx]/ensure: ensure changed 'purged' to 'present'
-	
-	```
+```shell
+
+notice: /Stage[main]//Package[nginx]/ensure: ensure changed 'purged' to 'present'
+
+```
 	
 This can become a real treasure as this way, you won't have to memorize what you need to install, to get the app running. All the system needs is to have `puppet` installed, after that `puppet` with the right manifests will handle everything. 
 
@@ -49,37 +49,36 @@ Now, let's do something different with Puppet- instead of installing another pac
 
 First, create a file in your local machine, inside `codebase_with_puppet` called `codebase_nginx`. To that file add the following
 
-	```nginx
-	server {
-		location / {
-			proxy_pass http://127.0.0.1:8000;
-		}
+```nginx
+server {
+	location / {
+		proxy_pass http://127.0.0.1:8000;
 	}
-	```
-	
+}
+```
+
 If you've gone through the previous post you'll notice that it's the same configuration that we had used. 
 
 Now, we'll use Puppet to make sure that the configuration file is placed where its supposed to be. To your `base.pp` file, add 
 
-	```puppet 
-	
-	file {"rm-nginx-default":
-		path => '/etc/nginx/sites-enabled/default',
-		ensure => absent,
-		require => Package['nginx'],
-	}
+```puppet 
 
-	file {"setup-nginx-codebase":
-		path => '/etc/nginx/sites-enabled/codebase_nginx',
-		ensure => present,
-		require => Package['nginx'],
-		source => "/vagrant/codebase_nginx",
-	}
-	```
+file {"rm-nginx-default":
+	path => '/etc/nginx/sites-enabled/default',
+	ensure => absent,
+	require => Package['nginx'],
+}
+
+file {"setup-nginx-codebase":
+	path => '/etc/nginx/sites-enabled/codebase_nginx',
+	ensure => present,
+	require => Package['nginx'],
+	source => "/vagrant/codebase_nginx",
+}
+```
 	
 Run `vagrant reload` and you're done with the `nginx` configuration. Besides removing the repetitiveness for you, Puppet is also wonderful when you're working on a team or on an open-source project. Now, all you need to do is write the manifests and once you share them you can rest assured that the entire team has the exact same environment.  
 
-	
 
 [vagrant](http://vagrantup.com)
 [puppet](http://docs.puppetlabs.com/)
