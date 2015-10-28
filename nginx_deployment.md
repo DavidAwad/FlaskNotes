@@ -2,7 +2,7 @@
 
 I had some difficulty in grasping how exactly to set up a server when I tried to do so recently, so I decided to write a tutorial that will guide you through the process. Hopefully, this post will help you avoid at least some of the confusion that I encountered.
 
-We'll be using Nginx + Gunicorn to host a simple Flask app. Many of you may not have access to a server but don't worry, we'll use [Vagrant][vagrant], which makes use of a VirtualBox VM to emulate a server.
+We'll be using Nginx + Gunicorn to host a simple Flask app. Many of you may not have access to a server but don't worry, we'll use [Vagrant](https://www.vagrantup.com/), which makes use of a VirtualBox to launch a server in a virtual machine.
 
 ###The Flask App
 
@@ -163,13 +163,12 @@ Now, from inside `codebase` run
 gunicorn app:app -b localhost:8000
 ```
 
-If everything went right, if you visit [http://33.33.33.33/][33] you should now see the "Hello World!" message. Congratulations! You've successfully set up your own server.
+If everything went right, if you visit http://33.33.33.33/ in the browser you should now see the "Hello World!" message. Congratulations! You've successfully set up your own server.
 
-**Update-** *I've written a follow-up to this post which covers Puppet, a really handy tool that's comes packaged with Vagrant- you can [find the post here][follow_up].*
 
 [vagrant](http://vagrantup.com)
-[flask](http://flask.pocoo.org/)
-[pelletier](http://thomas.pelletier.im/2011/04/git-django-deployment/)
-[virtualenv](http://pypi.python.org/pypi/virtualenv)
 
+[flask](http://flask.pocoo.org/)
+
+[virtualenv](http://pypi.python.org/pypi/virtualenv)
 
